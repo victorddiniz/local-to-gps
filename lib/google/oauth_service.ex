@@ -33,14 +33,6 @@ defmodule Google.OauthService do
     Poison.decode!(body)
   end
 
-  defp handle_response({:ok, %HTTPoison.Response{status_code: _, body: body}}) do
-    %{error: Poison.decode!(body)}
-  end
-
-  defp handle_response({:error, %HTTPoison.Error{reason: reason}}) do
-    %{error: reason}
-  end
-
   defp build_access_token_data(auth_code) do
     redirect_url = "http://localhost:4000/aouth"
     "code=#{auth_code}&client_id=#{@clientId}&client_secret=#{@clientSecret}&redirect_uri=#{redirect_url}&grant_type=authorization_code"
